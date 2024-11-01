@@ -26,41 +26,62 @@ class BarChartWidget extends StatelessWidget {
           Expanded(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8),
-              child: BarChart(
-                BarChartData(
-                  barTouchData: BarTouchData(
-                    touchTooltipData: BarTouchTooltipData(
-                      getTooltipItem: (group, groupIndex, rod, rodIndex) {
-                        return BarTooltipItem(
-                          rod.toY.toString(), // Affiche la valeur exacte de la barre
-                          TextStyle(color: rod.color, fontSize: 12, fontWeight: FontWeight.bold),
-                        );
-                      },
-                    ),
-                  ),
-                  barGroups: _createBarGroups(),
-                  titlesData: FlTitlesData(
-                    bottomTitles: AxisTitles(
-                      sideTitles: SideTitles(
-                        showTitles: true,
-                        getTitlesWidget: _getTitles,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  const SizedBox(height: 30),
+                  Expanded(
+                    child: BarChart(
+                      BarChartData(
+                        barTouchData: BarTouchData(
+                          touchTooltipData: BarTouchTooltipData(
+                            getTooltipItem: (group, groupIndex, rod, rodIndex) {
+                              return BarTooltipItem(
+                                rod.toY.toString(),
+                                TextStyle(color: rod.color, fontSize: 12, fontWeight: FontWeight.bold),
+                              );
+                            },
+                          ),
+                        ),
+                        barGroups: _createBarGroups(),
+                        titlesData: FlTitlesData(
+                          bottomTitles: AxisTitles(
+                            sideTitles: SideTitles(
+                              showTitles: true,
+                              getTitlesWidget: _getTitles,
+                            ),
+                          ),
+                          leftTitles: const AxisTitles(
+                            sideTitles: SideTitles(showTitles: false), // Masquer les titres de gauche
+                          ),
+                          topTitles: AxisTitles(
+                            sideTitles: SideTitles(showTitles: false), // Masquer les titres en haut
+                          ),
+                          rightTitles: AxisTitles(
+                            sideTitles: SideTitles(showTitles: false), // Masquer les titres de droite
+                          ),
+                        ),
+                        gridData: const FlGridData(show: false),
+                        borderData: FlBorderData(show: false),
                       ),
                     ),
-                    leftTitles: const AxisTitles(
-                      sideTitles: SideTitles(showTitles: false),
+                  ),
+                  const SizedBox(height: 10),
+                  Center(
+                    child: Text(
+                      title, // Titre à l'intérieur du Padding
+                      style: const TextStyle(
+                        color: Colors.black,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
-                  gridData: const FlGridData(show: false),
-                  borderData: FlBorderData(show: false),
-                ),
+                ],
               ),
             ),
           ),
           const SizedBox(height: 20),
-          Text(
-            title,
-            style: const TextStyle(color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold,),
-          ),
         ],
       ),
     );
